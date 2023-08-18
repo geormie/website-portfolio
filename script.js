@@ -1,30 +1,45 @@
-const aboutMeTab = document.querySelector('.about-me');
-const skillTab = document.querySelector('.skill');
-const contactTab = document.querySelector('.contact');
-const aboutMeDescription = document.querySelector('.description.about-me');
-const skillDescription = document.querySelector('.description.skill');
-const contactDescription = document.querySelector('.description.contact');
+document.addEventListener("DOMContentLoaded", function () {
+  const tabs = document.querySelectorAll(".tab");
+  const descriptions = document.querySelectorAll(".description");
 
-aboutMeTab.addEventListener('click', () => {
-  if (!aboutMeDescription.classList.contains('active')) {
-    aboutMeDescription.classList.add('active');
-    skillDescription.classList.remove('active');
-    contactDescription.classList.remove('active');
-  }
-});
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const tabClass = tab.classList[1];
+      descriptions.forEach((desc) => {
+        if (desc.classList.contains("active")) {
+          desc.style.opacity = "0"; // Hide the active description with fade-out animation
+          setTimeout(() => {
+            desc.classList.remove("active");
+            desc.style.opacity = "1"; // Reset opacity for future animations
+          }, 300); // Adjust the duration to match your CSS transition time
+        }
+      });
+      const clickedDescription = document.querySelector(`.description.${tabClass}`);
+      clickedDescription.style.transform = "translateY(20px)"; // Apply initial translation for animation
+      setTimeout(() => {
+        clickedDescription.classList.add("active");
+        clickedDescription.style.transform = "translateY(0)"; // Apply final translation for animation
+      }, 10); // Slight delay to allow for opacity transition
+    });
+  });
 
-skillTab.addEventListener('click', () => {
-  if (!skillDescription.classList.contains('active')) {
-    skillDescription.classList.add('active');
-    aboutMeDescription.classList.remove('active');
-    contactDescription.classList.remove('active');
-  }
-});
+  const creationsTab = document.querySelector('.tab.creations');
+  const creationsDescription = document.querySelector('.description.creations');
 
-contactTab.addEventListener('click', () => {
-  if (!contactDescription.classList.contains('active')) {
-    contactDescription.classList.add('active');
-    aboutMeDescription.classList.remove('active');
-    skillDescription.classList.remove('active');
-  }
+  creationsTab.addEventListener('click', () => {
+    descriptions.forEach((desc) => {
+      if (desc.classList.contains("active")) {
+        desc.style.opacity = "0"; // Hide the active description with fade-out animation
+        setTimeout(() => {
+          desc.classList.remove("active");
+          desc.style.opacity = "1"; // Reset opacity for future animations
+        }, 300); // Adjust the duration to match your CSS transition time
+      }
+    });
+    creationsDescription.style.transform = "translateY(20px)"; // Apply initial translation for animation
+    setTimeout(() => {
+      creationsDescription.classList.add("active");
+      creationsDescription.style.transform = "translateY(0)"; // Apply final translation for animation
+    }, 10); // Slight delay to allow for opacity transition
+  });
 });
